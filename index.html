@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Manajemen Survey Kesehatan Gigi dan Mulut</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Aplikasi Manajemen Survey Kesehatan Gigi dan Mulut</h1>
+            <p>Sistem Pencatatan Data Pemeriksaan Gigi Berdasarkan Standar WHO</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Form Input Data Pasien -->
+            <div class="form-section">
+                <h2>Data Pasien</h2>
+                <form id="patientForm">
+                    <div class="form-group">
+                        <label for="patientName">Nama Pasien:</label>
+                        <input type="text" id="patientName" name="patientName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthDate">Tanggal Lahir:</label>
+                        <input type="date" id="birthDate" name="birthDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Jenis Kelamin:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="male" name="gender" value="Laki-laki" required>
+                            <label for="male">Laki-laki</label>
+                            <input type="radio" id="female" name="gender" value="Perempuan" required>
+                            <label for="female">Perempuan</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="occupation">Pekerjaan:</label>
+                        <input type="text" id="occupation" name="occupation" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">Umur:</label>
+                        <input type="number" id="age" name="age" min="0" max="120" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Alamat Tinggal:</label>
+                        <textarea id="address" name="address" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="religion">Agama:</label>
+                        <select id="religion" name="religion" required>
+                            <option value="">Pilih Agama</option>
+                            <option value="Islam">Islam</option>
+                            <option value="Kristen">Kristen</option>
+                            <option value="Katolik">Katolik</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Buddha">Buddha</option>
+                            <option value="Konghucu">Konghucu</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="examDate">Tanggal Pemeriksaan:</label>
+                        <input type="date" id="examDate" name="examDate" required>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Odontogram Section -->
+            <div class="odontogram-section">
+                <h2>Odontogram - Pemeriksaan Kondisi Gigi</h2>
+                
+                <!-- Legend -->
+                <div class="legend">
+                    <h3>Keterangan Kondisi Gigi</h3>
+                    <div class="legend-grid">
+                        <div class="legend-section">
+                            <h4>Gigi Tetap (Dewasa)</h4>
+                            <div class="legend-items">
+                                <div class="legend-item" data-code="0"><span class="code">0</span> Sehat</div>
+                                <div class="legend-item" data-code="1"><span class="code">1</span> Gigi Berlubang/Karies</div>
+                                <div class="legend-item" data-code="2"><span class="code">2</span> Tumpatan dengan karies</div>
+                                <div class="legend-item" data-code="3"><span class="code">3</span> Tumpatan tanpa karies</div>
+                                <div class="legend-item" data-code="4"><span class="code">4</span> Gigi dicabut karena karies</div>
+                                <div class="legend-item" data-code="5"><span class="code">5</span> Gigi dicabut karena sebab lain</div>
+                                <div class="legend-item" data-code="6"><span class="code">6</span> Fissure Sealant</div>
+                                <div class="legend-item" data-code="7"><span class="code">7</span> Protesa cekat/mahkota cekat/implan/veneer</div>
+                                <div class="legend-item" data-code="8"><span class="code">8</span> Gigi tidak tumbuh</div>
+                                <div class="legend-item" data-code="9"><span class="code">9</span> Lain-lain</div>
+                            </div>
+                        </div>
+                        
+                        <div class="legend-section">
+                            <h4>Gigi Susu (Anak)</h4>
+                            <div class="legend-items">
+                                <div class="legend-item" data-code="A"><span class="code">A</span> Sehat</div>
+                                <div class="legend-item" data-code="B"><span class="code">B</span> Gigi Berlubang/Karies</div>
+                                <div class="legend-item" data-code="C"><span class="code">C</span> Tumpatan dengan karies</div>
+                                <div class="legend-item" data-code="D"><span class="code">D</span> Tumpatan tanpa karies</div>
+                                <div class="legend-item" data-code="E"><span class="code">E</span> Gigi dicabut karena karies</div>
+                                <div class="legend-item" data-code="F"><span class="code">F</span> Fissure Sealant</div>
+                                <div class="legend-item" data-code="G"><span class="code">G</span> Protesa cekat/mahkota cekat/implan/veneer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Odontogram Chart -->
+                <div class="odontogram-chart">
+                    <!-- Rahang Atas -->
+                    <div class="jaw-section upper-jaw">
+                        <h3>Rahang Atas</h3>
+                        
+                        <!-- Gigi Susu Rahang Atas -->
+                        <div class="teeth-row primary-teeth">
+                            <div class="tooth primary" data-number="55" data-type="primary">
+                                <div class="tooth-number">55</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="54" data-type="primary">
+                                <div class="tooth-number">54</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="53" data-type="primary">
+                                <div class="tooth-number">53</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="52" data-type="primary">
+                                <div class="tooth-number">52</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="51" data-type="primary">
+                                <div class="tooth-number">51</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="61" data-type="primary">
+                                <div class="tooth-number">61</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="62" data-type="primary">
+                                <div class="tooth-number">62</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="63" data-type="primary">
+                                <div class="tooth-number">63</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="64" data-type="primary">
+                                <div class="tooth-number">64</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="65" data-type="primary">
+                                <div class="tooth-number">65</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Gigi Tetap Rahang Atas -->
+                        <div class="teeth-row permanent-teeth">
+                            <div class="tooth permanent" data-number="18" data-type="permanent">
+                                <div class="tooth-number">18</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="17" data-type="permanent">
+                                <div class="tooth-number">17</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="16" data-type="permanent">
+                                <div class="tooth-number">16</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="15" data-type="permanent">
+                                <div class="tooth-number">15</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="14" data-type="permanent">
+                                <div class="tooth-number">14</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="13" data-type="permanent">
+                                <div class="tooth-number">13</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="12" data-type="permanent">
+                                <div class="tooth-number">12</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="11" data-type="permanent">
+                                <div class="tooth-number">11</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="21" data-type="permanent">
+                                <div class="tooth-number">21</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="22" data-type="permanent">
+                                <div class="tooth-number">22</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="23" data-type="permanent">
+                                <div class="tooth-number">23</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="24" data-type="permanent">
+                                <div class="tooth-number">24</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="25" data-type="permanent">
+                                <div class="tooth-number">25</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="26" data-type="permanent">
+                                <div class="tooth-number">26</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="27" data-type="permanent">
+                                <div class="tooth-number">27</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="28" data-type="permanent">
+                                <div class="tooth-number">28</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rahang Bawah -->
+                    <div class="jaw-section lower-jaw">
+                        <h3>Rahang Bawah</h3>
+                        
+                        <!-- Gigi Tetap Rahang Bawah -->
+                        <div class="teeth-row permanent-teeth">
+                            <div class="tooth permanent" data-number="48" data-type="permanent">
+                                <div class="tooth-number">48</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="47" data-type="permanent">
+                                <div class="tooth-number">47</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="46" data-type="permanent">
+                                <div class="tooth-number">46</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="45" data-type="permanent">
+                                <div class="tooth-number">45</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="44" data-type="permanent">
+                                <div class="tooth-number">44</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="43" data-type="permanent">
+                                <div class="tooth-number">43</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="42" data-type="permanent">
+                                <div class="tooth-number">42</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="41" data-type="permanent">
+                                <div class="tooth-number">41</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="31" data-type="permanent">
+                                <div class="tooth-number">31</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="32" data-type="permanent">
+                                <div class="tooth-number">32</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="33" data-type="permanent">
+                                <div class="tooth-number">33</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="34" data-type="permanent">
+                                <div class="tooth-number">34</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="35" data-type="permanent">
+                                <div class="tooth-number">35</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="36" data-type="permanent">
+                                <div class="tooth-number">36</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="37" data-type="permanent">
+                                <div class="tooth-number">37</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth permanent" data-number="38" data-type="permanent">
+                                <div class="tooth-number">38</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Gigi Susu Rahang Bawah -->
+                        <div class="teeth-row primary-teeth">
+                            <div class="tooth primary" data-number="85" data-type="primary">
+                                <div class="tooth-number">85</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="84" data-type="primary">
+                                <div class="tooth-number">84</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="83" data-type="primary">
+                                <div class="tooth-number">83</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="82" data-type="primary">
+                                <div class="tooth-number">82</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="81" data-type="primary">
+                                <div class="tooth-number">81</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="71" data-type="primary">
+                                <div class="tooth-number">71</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="72" data-type="primary">
+                                <div class="tooth-number">72</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="73" data-type="primary">
+                                <div class="tooth-number">73</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="74" data-type="primary">
+                                <div class="tooth-number">74</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                            <div class="tooth primary" data-number="75" data-type="primary">
+                                <div class="tooth-number">75</div>
+                                <div class="tooth-condition" data-condition="">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Condition Selector Modal -->
+                <div id="conditionModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Pilih Kondisi Gigi <span id="selectedToothNumber"></span></h3>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <div id="conditionOptions" class="condition-options">
+                                <!-- Options will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Health Assessment Section -->
+            <div class="health-assessment-section">
+                <h2>Pemeriksaan Kesehatan Gigi dan Mulut Tambahan</h2>
+                
+                <!-- Bleeding Gums Assessment -->
+                <div class="assessment-card">
+                    <div class="assessment-header">
+                        <h3>🩸 Gusi berdarah</h3>
+                    </div>
+                    <div class="assessment-content">
+                        <div class="radio-group">
+                            <input type="radio" id="bleeding_no" name="bleedingGums" value="0" checked>
+                            <label for="bleeding_no">0 = Tidak</label>
+                            <input type="radio" id="bleeding_yes" name="bleedingGums" value="1">
+                            <label for="bleeding_yes">1 = Ya</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Oral Mucosal Lesions Assessment -->
+                <div class="assessment-card">
+                    <div class="assessment-header">
+                        <h3>🦷 Lesi Mukosa Oral</h3>
+                    </div>
+                    <div class="assessment-content">
+                        <div class="radio-group">
+                            <input type="radio" id="lesion_no" name="oralLesions" value="0" checked>
+                            <label for="lesion_no">0 = Tidak</label>
+                            <input type="radio" id="lesion_yes" name="oralLesions" value="1">
+                            <label for="lesion_yes">1 = Ya</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dental Indices Section -->
+                <div class="indices-section">
+                    <div class="indices-grid">
+                        <!-- def-t Index -->
+                        <div class="index-card">
+                            <div class="index-header">
+                                <h3>Indeks def-t</h3>
+                                <p class="index-subtitle">Gigi Susu</p>
+                            </div>
+                            <div class="index-values">
+                                <div class="index-item">
+                                    <span class="index-label">d</span>
+                                    <span class="index-value" id="d-value">0</span>
+                                </div>
+                                <div class="index-item">
+                                    <span class="index-label">e</span>
+                                    <span class="index-value" id="e-value">0</span>
+                                </div>
+                                <div class="index-item">
+                                    <span class="index-label">f</span>
+                                    <span class="index-value" id="f-value">0</span>
+                                </div>
+                                <div class="index-item total">
+                                    <span class="index-label">def-t</span>
+                                    <span class="index-value" id="def-t-value">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DMF-T Index -->
+                        <div class="index-card">
+                            <div class="index-header">
+                                <h3>Indeks DMF-T</h3>
+                                <p class="index-subtitle">Gigi Tetap</p>
+                            </div>
+                            <div class="index-values">
+                                <div class="index-item">
+                                    <span class="index-label">D</span>
+                                    <span class="index-value" id="D-value">0</span>
+                                </div>
+                                <div class="index-item">
+                                    <span class="index-label">M</span>
+                                    <span class="index-value" id="M-value">0</span>
+                                </div>
+                                <div class="index-item">
+                                    <span class="index-label">F</span>
+                                    <span class="index-value" id="F-value">0</span>
+                                </div>
+                                <div class="index-item total">
+                                    <span class="index-label">DMF-T</span>
+                                    <span class="index-value" id="DMF-T-value">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Follow-up Section -->
+                <div class="followup-section">
+                    <h2>Tindak Lanjut</h2>
+                    
+                    <div class="followup-grid">
+                        <!-- Treatment Recommendations -->
+                        <div class="followup-card">
+                            <div class="followup-header">
+                                <h3>🩺 Rekomendasi Perawatan</h3>
+                            </div>
+                            <div class="followup-content">
+                                <textarea id="treatmentRecommendations" name="treatmentRecommendations" 
+                                         placeholder="Rekomendasi Perawatan Selanjutnya" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Referral -->
+                        <div class="followup-card">
+                            <div class="followup-header">
+                                <h3>🏥 Rujukan</h3>
+                            </div>
+                            <div class="followup-content">
+                                <div class="radio-group">
+                                    <input type="radio" id="referral_no" name="referralStatus" value="Tidak Dirujuk" checked>
+                                    <label for="referral_no">1. Tidak Dirujuk</label>
+                                    <input type="radio" id="referral_yes" name="referralStatus" value="Dirujuk">
+                                    <label for="referral_yes">2. Dirujuk</label>
+                                </div>
+                                <div id="referralDetails" style="display: none; margin-top: 15px;">
+                                    <label for="referralTo">Rujuk ke:</label>
+                                    <select id="referralTo" name="referralTo">
+                                        <option value="">Pilih Tujuan Rujukan</option>
+                                        <option value="Tidak Dirujuk">Tidak Dirujuk</option>
+                                        <option value="Puskesmas">Puskesmas</option>
+                                        <option value="Klinik Pratama">Klinik Pratama</option>
+                                        <option value="Klinik Utama">Klinik Utama</option>
+                                        <option value="Rumah Sakit">Rumah Sakit</option>
+                                    </select>
+                                    <label for="referralReason" style="margin-top: 10px;">Alasan Rujukan:</label>
+                                    <select id="referralReason" name="referralReason">
+                                        <option value="">Pilih Alasan Rujukan</option>
+                                        <option value="Karies berat">Karies berat</option>
+                                        <option value="Abses gigi">Abses gigi</option>
+                                        <option value="Perawatan akar">Perawatan akar</option>
+                                        <option value="Pencabutan gigi sulit">Pencabutan gigi sulit</option>
+                                        <option value="Perawatan gigi anak">Perawatan gigi anak</option>
+                                        <option value="Bedah mulut">Bedah mulut</option>
+                                        <option value="Perawatan ortodontik">Perawatan ortodontik</option>
+                                        <option value="Perawatan periodontal">Perawatan periodontal</option>
+                                        <option value="Lainnya">Lainnya</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button type="button" id="saveData" class="btn btn-primary">Simpan Data</button>
+                <button type="button" id="resetForm" class="btn btn-secondary">Reset Form</button>
+                <button type="button" id="viewData" class="btn btn-info">Lihat Data Tersimpan</button>
+            </div>
+
+            <!-- Data Display Section -->
+            <div id="dataDisplay" class="data-display" style="display: none;">
+                <h2>Data Pemeriksaan Tersimpan</h2>
+                <div id="savedDataList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
